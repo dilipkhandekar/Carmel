@@ -8,4 +8,5 @@ public interface UgtOpHandlerInterface {
 	
 	// Execute the given operation on the application in foreground
 	void Execute(OperationId opId, OperationArgs args);
+	
 }
