@@ -28,8 +28,13 @@ public class UgtServer {
 		
 		gUgtServer.Initialize();
 		
-		gUgtServer.Start();
-		
+		try {
+			Thread.sleep(3*1000);
+			gUgtServer.Start();
+		} catch (Exception e)
+		{
+			
+		}
 		gUgtServer.Shutdown();
 	}
 	
