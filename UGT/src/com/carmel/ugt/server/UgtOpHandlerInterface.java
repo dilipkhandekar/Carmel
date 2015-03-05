@@ -7,5 +7,6 @@ public interface UgtOpHandlerInterface {
 	void Initialize();
 	
 	// Execute the given operation on the application in foreground
-	void Execute(OperationId opId, OperationArgs args);
+	void Execute(OperationId.ID opId, OperationArgs args);
+	
 }

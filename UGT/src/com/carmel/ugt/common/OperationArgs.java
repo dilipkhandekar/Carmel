@@ -1,8 +1,12 @@
 package com.carmel.ugt.common;
 
-public class OperationArgs {
+import java.io.Serializable;
+
+public class OperationArgs implements Serializable {
 	// TODO: This is probably not the right way to implement args
-	Object GetOpArgs() { return opArgs; }
+	public OperationArgs(int arg) { opArgs = arg; }
 	
-	private Object opArgs;
+	public int GetOpArgs() { return opArgs; }
+	
+	private int opArgs;
 }
