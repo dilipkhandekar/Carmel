@@ -13,7 +13,7 @@ public class UgtOpInvoker {
 		dispatcher = stub;
 	}
 
-	void Invoke(OperationId.ID opId, OperationArgs opArgs)
+	public void Invoke(OperationId.ID opId, OperationArgs opArgs)
 	{
 		System.out.println("Calling server dispatcher for " + opId.toString() + " " + opArgs.toString() + " ...");
 		try {

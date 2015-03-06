@@ -10,12 +10,12 @@ import java.rmi.RemoteException;
 
 public class UgtClient {
 
-	void Initialize()
+	public void Initialize()
 	{
 		// Initialization of RMI stuff
 	}
 	
-	UgtOpInvoker Connect(String host) throws RemoteException, NotBoundException
+	public UgtOpInvoker Connect(String host) throws RemoteException, NotBoundException
 	{
 		// Connect to the server. Initialize the UgtOpInvoker. 
         Registry registry = LocateRegistry.getRegistry(host);
@@ -25,7 +25,7 @@ public class UgtClient {
         return invoker;
 	}
 	
-	void Disconnect()
+	public void Disconnect()
 	{
 		// Disconnect from the server
 	}
