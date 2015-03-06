@@ -8,5 +8,6 @@ public class OperationArgs implements Serializable {
 	
 	public int GetOpArgs() { return opArgs; }
 	
+	static final long serialVersionUID = 1001L;
 	private int opArgs;
 }
