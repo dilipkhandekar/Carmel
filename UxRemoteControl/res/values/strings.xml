@@ -4,5 +4,6 @@
     <string name="app_name">UxRemoteControl</string>
     <string name="title_activity_main">Universal App Remote Control</string>
     <string name="scroll_id">Scroll</string>
+    <string name="OnClickConnectButton">OnClickConnectButton</string>
 
 </resources>

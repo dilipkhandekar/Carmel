@@ -2,18 +2,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
+    android:clickable="true"
+    android:onClick="OnClickConnectButton"
+    tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/id_scroll"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="150dp"
+    <EditText
+        android:id="@+id/serverIpAddress"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="false"
-        android:layout_marginTop="169dp"
-        android:onClick="OnClickScroll"
-        android:text="@string/scroll_id" />
+        android:ems="10"
+        android:hint="Server IP Address"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/serverIpAddress"
+        android:layout_below="@+id/serverIpAddress"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/username"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="26dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/connectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:onClick="@string/OnClickConnectButton"
+        android:text="Connect" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/connectButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/carmel_photo" />
 
 </RelativeLayout>

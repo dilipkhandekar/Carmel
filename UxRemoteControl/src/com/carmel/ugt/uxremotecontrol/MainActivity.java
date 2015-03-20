@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.*;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
@@ -22,42 +23,30 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
+		
 		setContentView(R.layout.activity_main);
 		
-		try
-		{ 
-	//		m_client = new UgtClient();
-	//    	String host = "";
-	//    	m_invoker = m_client.Connect(host);
-	
-        } catch (Exception e) {
-            System.err.println("Client exception: " + e.toString());
-            e.printStackTrace();
-        }
-
-       // m_client.Disconnect();
-
 	}
 	
-	public void OnClickScroll(View view) 
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+	}
+
+	public void OnClickConnectButton(View view) 
 	{
 		try
 		{
-            System.out.print("OnScrollClicked");
+            System.out.println("Connect Button Clicked");
+            EditText sEdit = (EditText) findViewById(R.id.serverIpAddress);
+            EditText uEdit = (EditText) findViewById(R.id.username);
+            EditText pEdit = (EditText) findViewById(R.id.password);
+            System.out.println("IP Address = " + sEdit.getText());
+            System.out.println("Username = " + uEdit.getText());
+            System.out.println("Password = " + pEdit.getText());
 
-/*			for (int i=0; i < 10; i++)
-			{
-				m_invoker.Invoke(OperationId.ID.OpIdScroll, new OperationArgs(10));
-				Thread.sleep(200);
-			}
-			
-			for (int i=0;i< 10;i++)
-			{
-				m_invoker.Invoke(OperationId.ID.OpIdScroll, new OperationArgs(-10));
-				Thread.sleep(200);
-			}
- */       } catch (Exception e) {
+		} catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
         }
