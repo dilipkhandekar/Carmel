@@ -21,6 +21,7 @@ public class UgtOpDefaultHandler implements UgtOpHandlerInterface {
 		case OpIdZoom:
 			try
 			{
+				System.out.println("ZOOM");
 				Robot robot = new Robot();
 				robot.keyPress(KeyEvent.VK_CONTROL);
 				
@@ -38,6 +39,7 @@ public class UgtOpDefaultHandler implements UgtOpHandlerInterface {
 		case OpIdScroll:
 			try
 			{
+				System.out.println("SCROLL");
 				Robot robot = new Robot();
 				
 				int pixels = args.GetOpArgs();

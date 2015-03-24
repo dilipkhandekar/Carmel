@@ -4,8 +4,6 @@ import com.carmel.ugt.common.OperationId;
 import com.carmel.ugt.common.OperationArgs;
 import com.carmel.ugt.common.UgtOpDispatcherInterface;
 
-import java.rmi.RemoteException;
-
 public class UgtOpDispatcher implements UgtOpDispatcherInterface {
 	// Need to add the following data members:
 	// RMI Stuff
@@ -24,7 +22,7 @@ public class UgtOpDispatcher implements UgtOpDispatcherInterface {
 	
 	}
 	
-	public void Dispatch(OperationId.ID opId, OperationArgs args) throws RemoteException
+	public void Dispatch(OperationId.ID opId, OperationArgs args)
 	{
 		// Dispatch the given operation to the corresponding UgtOpHandler
 		System.out.println("Dispatching " + opId.toString() + " " + args.toString() + "...");

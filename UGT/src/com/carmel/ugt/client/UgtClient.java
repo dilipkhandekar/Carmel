@@ -1,12 +1,12 @@
 package com.carmel.ugt.client;
-import com.carmel.ugt.common.UgtOpDispatcherInterface;
+
 import com.carmel.ugt.common.OperationId;
 import com.carmel.ugt.common.OperationArgs;
 
-import java.rmi.registry.Registry;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 public class UgtClient {
 
@@ -15,13 +15,16 @@ public class UgtClient {
 		// Initialization of RMI stuff
 	}
 	
-	public UgtOpInvoker Connect(String host) throws RemoteException, NotBoundException
+	public UgtOpInvoker Connect(String host)
 	{
 		// Connect to the server. Initialize the UgtOpInvoker. 
-        Registry registry = LocateRegistry.getRegistry(host);
-        UgtOpDispatcherInterface stub = (UgtOpDispatcherInterface) registry.lookup("UgtOpDispatcherInterface");
-        UgtOpInvoker invoker = new UgtOpInvoker();
-        invoker.SetDispatcher(stub);
+		if (host==null)
+			host = "localhost";
+		
+		ClientConfig config = new DefaultClientConfig();
+        Client client = Client.create(config);
+        WebResource service = client.resource("http://" + host + ":8080"); // TODO: Parameterize the port number
+        UgtOpInvoker invoker = new UgtOpInvoker(service);
         return invoker;
 	}
 	
