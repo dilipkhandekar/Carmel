@@ -1,24 +1,23 @@
 package com.carmel.ugt.client;
 
-import java.rmi.RemoteException;
+import com.sun.jersey.api.client.WebResource;
 
 import com.carmel.ugt.common.*;
 
 public class UgtOpInvoker {
-	// Need to add RMI related data members
-	private UgtOpDispatcherInterface dispatcher;
-	
-	void SetDispatcher(UgtOpDispatcherInterface stub)
+	private WebResource mWebService;
+
+	public UgtOpInvoker(WebResource webService)
 	{
-		dispatcher = stub;
+		mWebService = webService;
 	}
 
 	public void Invoke(OperationId.ID opId, OperationArgs opArgs)
 	{
 		System.out.println("Calling server dispatcher for " + opId.toString() + " " + opArgs.toString() + " ...");
 		try {
-			dispatcher.Dispatch(opId, opArgs);
-		} catch (RemoteException e) {
+			mWebService.path("UGT/op/" + opId + "/" + opArgs.GetOpArgs() + "/").method("GET");
+		} catch (Exception e) {
 			System.err.println("Error invoking remote dispatcher: " + e.toString());
 			e.printStackTrace();
 		}

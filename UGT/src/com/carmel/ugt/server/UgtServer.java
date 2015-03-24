@@ -1,17 +1,28 @@
 package com.carmel.ugt.server;
-import com.carmel.ugt.common.UgtOpDispatcherInterface;
 
-import java.rmi.registry.Registry;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.server.UnicastRemoteObject;
+import java.io.IOException;
+import com.sun.jersey.api.container.httpserver.HttpServerFactory;
+import com.sun.jersey.api.core.DefaultResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
+import com.sun.net.httpserver.HttpServer;
 
-public class UgtServer {
+public class UgtServer { 
 
 	void Initialize()
 	{
 		// Initialization of RMI stuff
-		mOpDispatcher = new UgtOpDispatcher();
-		mOpDispatcher.Initialize();
+		if (gOpDispatcher == null)
+		{
+			gOpDispatcher = new UgtOpDispatcher();
+			gOpDispatcher.Initialize();
+		}
+		
+		ResourceConfig rc = new DefaultResourceConfig(UgtRESTServer.class);
+		try {
+			mWebServer = HttpServerFactory.create(BASE_URI,rc);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	void Start()
@@ -20,13 +31,9 @@ public class UgtServer {
 		getOpDispatcher().Start();
 		
 		try {
-			
-			UgtOpDispatcherInterface stub = (UgtOpDispatcherInterface) UnicastRemoteObject.exportObject(getOpDispatcher(), 0);
-	
-	        // Bind the remote object's stub in the registry
-	        Registry registry = LocateRegistry.getRegistry();
-	        registry.bind("UgtOpDispatcherInterface", stub);
-
+			if (mWebServer != null)
+				mWebServer.start();
+            
 		} catch (Exception e) {
 	        System.err.println("Server exception: " + e.toString());
 	        e.printStackTrace();
@@ -37,6 +44,8 @@ public class UgtServer {
 	{
 		// Shut down the dispatcher
 		getOpDispatcher().Shutdown();
+		if (mWebServer != null)
+			mWebServer.stop(0);
 	}
 	
 	public static void main(String[] args) {
@@ -49,20 +58,23 @@ public class UgtServer {
 		try {
 			Thread.sleep(3*1000);
 			gUgtServer.Start();
-	        System.err.println("Server ready");		
+	        System.out.println("Server ready");
+	        
+			System.out.println("Press ENTER to stop the server.");
+			System.in.read();
+
 		} catch (Exception e)
 		{
-			
+			e.printStackTrace();
 		}
-
-        // TODO: Clean exit from server loop. Until then, kill server process
-        for (;;);
-        
-		// TODO: This is unreachable code because of above line
-		//gUgtServer.Shutdown();
+		
+		System.out.println("Shutting down the server.");
+		gUgtServer.Shutdown();
 	}
 	
-	UgtOpDispatcher getOpDispatcher() { return mOpDispatcher; }
+	public static UgtOpDispatcher getOpDispatcher() { return gOpDispatcher; }
 	
-	private UgtOpDispatcher mOpDispatcher;
+	private static UgtOpDispatcher gOpDispatcher = null;
+	private HttpServer mWebServer;
+	static final String BASE_URI = "http://localhost:8080/"; // TODO: Get port number from command line
 }
