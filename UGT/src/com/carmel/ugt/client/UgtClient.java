@@ -18,7 +18,7 @@ public class UgtClient {
 	public UgtOpInvoker Connect(String host)
 	{
 		// Connect to the server. Initialize the UgtOpInvoker. 
-		if (host==null)
+		if ((host == null) || (host == ""))
 			host = "localhost";
 		
 		ClientConfig config = new DefaultClientConfig();

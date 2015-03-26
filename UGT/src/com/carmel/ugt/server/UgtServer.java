@@ -32,7 +32,7 @@ public class UgtServer {
 		
 		try {
 			if (mWebServer != null)
-				mWebServer.start();
+				mWebServer.start(); 
             
 		} catch (Exception e) {
 	        System.err.println("Server exception: " + e.toString());
